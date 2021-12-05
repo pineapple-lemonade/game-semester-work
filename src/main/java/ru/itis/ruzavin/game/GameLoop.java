@@ -30,21 +30,9 @@ public class GameLoop extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setScene(new Scene(createContent()));
-//		stage.getScene().setOnKeyReleased(k -> {
-//			player.moveForward();
-//		});
+
 		stage.getScene().setOnKeyPressed(k -> {
-			switch (k.getCode()){
-				case A:
-					player.rotateLeft();
-					break;
-				case D:
-					player.rotateRight();
-					break;
-				case W:
-					player.moveForward();
-					break;
-			}
+			player.moveForward(k.getCode());
 		});
 		stage.show();
 	}
@@ -80,6 +68,7 @@ public class GameLoop extends Application {
 
 	@SneakyThrows
 	private void onUpdate(){
+		player.moveForward(player.isDriving());
 		for (MapObject object : mapObjects){
 			if (player.isCollideWithMap(object)){
 				Point2D lastCheckpoint = player.getLastCheckpoint();
