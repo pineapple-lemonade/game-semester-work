@@ -6,8 +6,8 @@ import javafx.scene.shape.Rectangle;
 
 public class Checkpoint extends MapObject{
 
-	public Checkpoint(double x, double y) {
-		super(new Rectangle(x, y , 25, 25), new Point2D(x , y));
+	public Checkpoint(double x, double y, double width, double height) {
+		super(new Rectangle(x, y , width, height), new Point2D(x , y));
 	}
 
 }

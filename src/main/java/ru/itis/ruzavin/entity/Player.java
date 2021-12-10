@@ -16,9 +16,9 @@ public class Player extends GameObject{
 
 	private boolean isDriving;
 
-	public Player() {
+	public Player(double x, double y) {
 		super(new Rectangle(40,20, Color.GREEN));
-		this.lastCheckpoint = new Point2D(300, 300);
+		this.lastCheckpoint = new Point2D(x, y);
 		this.getView().setTranslateX(lastCheckpoint.getX());
 		this.getView().setTranslateY(lastCheckpoint.getY());
 		this.getView().setRotate(90);
