@@ -4,6 +4,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 import ru.itis.ruzavin.map.MapObject;
@@ -16,19 +17,24 @@ public class Player extends GameObject{
 
 	private boolean isDriving;
 
-	public Player(double x, double y) {
+	private Text nick;
+
+	public Player(double x, double y, Text nick) {
 		super(new Rectangle(40,20, Color.GREEN));
 		this.lastCheckpoint = new Point2D(x, y);
 		this.getView().setTranslateX(lastCheckpoint.getX());
 		this.getView().setTranslateY(lastCheckpoint.getY());
 		this.getView().setRotate(90);
 		this.isDriving = false;
+		this.nick = nick;
 	}
 
 	public void moveToCheckpoint(double x, double y, double rotation){
 		getView().setTranslateX(x);
 		getView().setTranslateY(y);
 		getView().setRotate(rotation);
+		nick.setX(x);
+		nick.setY(y - 10);
 		isDriving = false;
 	}
 
@@ -71,18 +77,22 @@ public class Player extends GameObject{
 	private void checkRotationAndMove(double rotation){
 		if (rotation == 0){
 			getView().setTranslateX(getView().getTranslateX() - 2);
+			nick.setX(nick.getX() - 2);
 		}
 
 		if (rotation == 90){
 			getView().setTranslateY(getView().getTranslateY() - 2);
+			nick.setY(nick.getY() - 2);
 		}
 
 		if (rotation == 180){
 			getView().setTranslateX(getView().getTranslateX() + 2);
+			nick.setX(nick.getX() + 2);
 		}
 
 		if (rotation == 270) {
 			getView().setTranslateY(getView().getTranslateY() + 2);
+			nick.setY(nick.getY() + 2);
 		}
 	}
 }

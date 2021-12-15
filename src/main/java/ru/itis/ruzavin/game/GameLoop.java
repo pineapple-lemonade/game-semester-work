@@ -7,10 +7,15 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 import ru.itis.ruzavin.entity.Player;
+import ru.itis.ruzavin.entity.ai.Bot;
 import ru.itis.ruzavin.map.Border;
 import ru.itis.ruzavin.map.Checkpoint;
 import ru.itis.ruzavin.map.Finish;
@@ -28,24 +33,32 @@ public class GameLoop extends Application {
 
 	private Player player;
 
+	private Bot bot;
+
+	private Font font = Font.font("Courier New", FontWeight.BOLD, 20);
+
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setScene(new Scene(createContent()));
-		stage.setFullScreen(true);
-		stage.getScene().setOnKeyPressed(k -> {
-			player.moveForward(k.getCode());
-		});
+		//stage.setFullScreen(true);
+		stage.getScene().setOnKeyPressed(k -> player.moveForward(k.getCode()));
 		stage.show();
 	}
 
-	private Parent createContent(){
+	private Parent createContent() {
 		root = new Pane();
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-		int width = gd.getDisplayMode().getWidth();
-		int height = gd.getDisplayMode().getHeight();
-		root.setPrefSize(width, height);
+		root.setPrefSize(1000, 1000);
 
-		player = new Player(250, 930);
+		Text botNick = new Text(300, 920, "bot");
+		Text nick = new Text(250, 920, "player");
+		nick.setFont(font);
+		botNick.setFont(font);
+
+		bot = new Bot(300, 930, botNick);
+		Thread botThread = new Thread(bot);
+		botThread.start();
+
+		player = new Player(250, 930, nick);
 		MapObject checkPoint = new Checkpoint(650, 500, 50, 25);
 		MapObject border = new Border(310, 950, 90, 5, 200);
 		MapObject border1 = new Border(410, 850, 0, 5, 200);
@@ -81,29 +94,54 @@ public class GameLoop extends Application {
 
 		mapObjects.forEach((object -> root.getChildren().add(object.getView())));
 		root.getChildren().add(player.getView());
+		root.getChildren().add(nick);
+		root.getChildren().add(botNick);
+		root.getChildren().add(bot.getView());
 
 		AnimationTimer timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
 				onUpdate();
+				onUpdateBot();
 			}
 		};
+
 		timer.start();
 
 		return root;
 	}
 
+	private void onUpdateBot() {
+		bot.moveForward(bot.isDriving());
+
+		if (bot.getView().getTranslateY() == 510) {
+			bot.getView().setRotate(180);
+		}
+
+		if (bot.getView().getTranslateX() == 600) {
+			bot.getView().setRotate(90);
+		}
+
+		if (bot.getView().getTranslateY() == 400) {
+			bot.getView().setRotate(180);
+		}
+
+		if (bot.getView().getTranslateX() == 690) {
+			bot.getView().setRotate(90);
+		}
+	}
+
 	@SneakyThrows
-	private void onUpdate(){
+	private void onUpdate() {
 		player.moveForward(player.isDriving());
-		for (MapObject object : mapObjects){
-			if (player.isCollideWithMap(object)){
+		for (MapObject object : mapObjects) {
+			if (player.isCollideWithMap(object)) {
 				Point2D lastCheckpoint = player.getLastCheckpoint();
-				if (object instanceof Checkpoint){
+				if (object instanceof Checkpoint) {
 					player.setLastCheckpoint(new Point2D(object.getPosition().getX(), object.getPosition().getY()));
 					break;
 				}
-				if(object instanceof Finish){
+				if (object instanceof Finish) {
 					Platform.exit();
 				}
 				player.moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), player.getRotate());
@@ -111,7 +149,7 @@ public class GameLoop extends Application {
 		}
 	}
 
-	public void startGame(){
+	public void startGame() {
 		launch();
 	}
 }
