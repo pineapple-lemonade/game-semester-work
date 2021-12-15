@@ -20,27 +20,22 @@ import ru.itis.ruzavin.map.Border;
 import ru.itis.ruzavin.map.Checkpoint;
 import ru.itis.ruzavin.map.Finish;
 import ru.itis.ruzavin.map.MapObject;
+import ru.itis.ruzavin.menu.MainMenu;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameLoop extends Application {
+public class GameLoop {
 
 	private Pane root;
-
 	private List<MapObject> mapObjects = new ArrayList<>();
-
 	private Player player;
-
 	private Bot bot;
-
 	private Font font = Font.font("Courier New", FontWeight.BOLD, 20);
+	private Stage stage;
 
-	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setScene(new Scene(createContent()));
-		//stage.setFullScreen(true);
 		stage.getScene().setOnKeyPressed(k -> player.moveForward(k.getCode()));
 		stage.show();
 	}
@@ -50,7 +45,7 @@ public class GameLoop extends Application {
 		root.setPrefSize(1000, 1000);
 
 		Text botNick = new Text(300, 920, "bot");
-		Text nick = new Text(250, 920, "player");
+		Text nick = new Text(250, 920, MainMenu.getNick());
 		nick.setFont(font);
 		botNick.setFont(font);
 
@@ -129,6 +124,10 @@ public class GameLoop extends Application {
 		if (bot.getView().getTranslateX() == 690) {
 			bot.getView().setRotate(90);
 		}
+
+		if (bot.isCollideWithMap(mapObjects.get(mapObjects.size() - 1))){
+			Platform.exit();
+		}
 	}
 
 	@SneakyThrows
@@ -149,7 +148,4 @@ public class GameLoop extends Application {
 		}
 	}
 
-	public void startGame() {
-		launch();
-	}
 }

@@ -1,9 +1,14 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
 import ru.itis.ruzavin.game.GameLoop;
+import ru.itis.ruzavin.menu.MainMenu;
 
-public class Launcher  {
+public class Launcher extends Application {
 
-	public static void main(String[] args) {
-		GameLoop gameLoop = new GameLoop();
-		gameLoop.startGame();
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		MainMenu mainMenu = new MainMenu();
+		mainMenu.show();
 	}
 }

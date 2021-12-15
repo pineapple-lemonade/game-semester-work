@@ -1,7 +1,6 @@
 package ru.itis.ruzavin.map;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 
 public class Border extends MapObject{
