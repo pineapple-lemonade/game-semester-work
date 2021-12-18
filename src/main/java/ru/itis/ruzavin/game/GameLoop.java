@@ -107,27 +107,7 @@ public class GameLoop {
 	}
 
 	private void onUpdateBot() {
-		bot.moveForward(bot.isDriving());
-
-		if (bot.getView().getTranslateY() == 510) {
-			bot.getView().setRotate(180);
-		}
-
-		if (bot.getView().getTranslateX() == 600) {
-			bot.getView().setRotate(90);
-		}
-
-		if (bot.getView().getTranslateY() == 400) {
-			bot.getView().setRotate(180);
-		}
-
-		if (bot.getView().getTranslateX() == 690) {
-			bot.getView().setRotate(90);
-		}
-
-		if (bot.isCollideWithMap(mapObjects.get(mapObjects.size() - 1))){
-			Platform.exit();
-		}
+		bot.moveBot(mapObjects);
 	}
 
 	@SneakyThrows
