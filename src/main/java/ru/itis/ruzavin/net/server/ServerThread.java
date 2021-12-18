@@ -7,14 +7,14 @@ import java.net.SocketException;
 
 @Data
 public class ServerThread implements Runnable{
-	private final BufferedReader input;
-	private final BufferedWriter output;
+	private final BufferedReader inputStream;
+	private final BufferedWriter outputStream;
 	private final Server server;
 	private boolean isWorking = true;
 
 	public ServerThread(BufferedReader input, BufferedWriter output, Server server) {
-		this.input = input;
-		this.output = output;
+		this.inputStream = input;
+		this.outputStream = output;
 		this.server = server;
 	}
 
@@ -26,7 +26,7 @@ public class ServerThread implements Runnable{
 	public void run() {
 		try {
 			while (isWorking) {
-				String message = input.readLine();
+				String message = inputStream.readLine();
 				server.sendMessage(message, this);
 			}
 		} catch (SocketException socketException) {

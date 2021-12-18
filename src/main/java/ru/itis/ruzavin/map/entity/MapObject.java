@@ -1,4 +1,4 @@
-package ru.itis.ruzavin.map;
+package ru.itis.ruzavin.map.entity;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Node;

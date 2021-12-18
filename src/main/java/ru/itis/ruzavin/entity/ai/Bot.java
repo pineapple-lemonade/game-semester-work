@@ -4,9 +4,8 @@ import javafx.application.Platform;
 import javafx.scene.text.Text;
 import lombok.SneakyThrows;
 import ru.itis.ruzavin.entity.Player;
-import ru.itis.ruzavin.map.MapObject;
+import ru.itis.ruzavin.map.entity.MapObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Bot extends Player implements Runnable{

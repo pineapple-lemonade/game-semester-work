@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
-import ru.itis.ruzavin.map.MapObject;
+import ru.itis.ruzavin.map.entity.MapObject;
 
 @Getter
 @Setter

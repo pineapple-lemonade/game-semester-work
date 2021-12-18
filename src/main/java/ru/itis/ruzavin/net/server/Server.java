@@ -40,8 +40,8 @@ public class Server {
 			if (client.equals(sender)){
 				continue;
 			}
-			client.getOutput().write(message+ "\n");
-			client.getOutput().flush();
+			client.getOutputStream().write(message+ "\n");
+			client.getOutputStream().flush();
 		}
 	}
 
