@@ -1,5 +1,6 @@
 package ru.itis.ruzavin.entity;
 
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -7,6 +8,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
+import ru.itis.ruzavin.game.GameLoop;
+import ru.itis.ruzavin.map.entity.Checkpoint;
+import ru.itis.ruzavin.map.entity.Finish;
 import ru.itis.ruzavin.map.entity.MapObject;
 import ru.itis.ruzavin.net.client.Client;
 
@@ -23,6 +27,7 @@ public class Player extends GameObject{
 	private boolean isMulti;
 	private Client client;
 	protected ImageView imageView;
+	private final GameLoop GAME_LOOP = GameLoop.getInstance();
 
 	public Player(double x, double y, Text nick , boolean isMulti) {
 		super(new Rectangle(40,20, Color.GREEN));
@@ -127,6 +132,23 @@ public class Player extends GameObject{
 		if (rotation == 270) {
 			getView().setTranslateY(getView().getTranslateY() + 2);
 			nick.setY(nick.getY() + 2);
+		}
+	}
+
+	public void checkCollisions(){
+		moveForward(isDriving());
+		for (MapObject object : GAME_LOOP.getMAP_OBJECTS()) {
+			if (isCollideWithMap(object)) {
+				Point2D lastCheckpoint = getLastCheckpoint();
+				if (object instanceof Checkpoint) {
+					setLastCheckpoint(new Point2D(object.getPosition().getX(), object.getPosition().getY()));
+					break;
+				}
+				if (object instanceof Finish) {
+					Platform.exit();
+				}
+				moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
+			}
 		}
 	}
 }

@@ -12,6 +12,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import ru.itis.ruzavin.entity.AnotherPlayer;
 import ru.itis.ruzavin.entity.Player;
@@ -28,6 +29,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class GameLoop {
 
 	private static Pane root;
+	@Getter
 	private final List<MapObject> MAP_OBJECTS = new ArrayList<>();
 	private Player player;
 	private Bot bot;
@@ -150,20 +152,7 @@ public class GameLoop {
 
 	@SneakyThrows
 	private void onUpdate() {
-		player.moveForward(player.isDriving());
-		for (MapObject object : MAP_OBJECTS) {
-			if (player.isCollideWithMap(object)) {
-				Point2D lastCheckpoint = player.getLastCheckpoint();
-				if (object instanceof Checkpoint) {
-					player.setLastCheckpoint(new Point2D(object.getPosition().getX(), object.getPosition().getY()));
-					break;
-				}
-				if (object instanceof Finish) {
-					Platform.exit();
-				}
-				player.moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), player.getRotate());
-			}
-		}
+
 	}
 
 	public synchronized void moveAnotherPlayer(String name, double rotation, boolean isDriving) {

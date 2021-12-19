@@ -10,13 +10,11 @@ import ru.itis.ruzavin.map.GameMap;
 @Setter
 public class AnotherPlayer extends Player{
 	private final GameMap map = new GameMap();
-	private final Text nick;
 	private String name;
 	private GameLoop gameLoop;
 
 	public AnotherPlayer(Text nick, String name) {
 		super(300, 930, nick, true);
-		this.nick = nick;
 		this.name = name;
 	}
 
@@ -27,8 +25,8 @@ public class AnotherPlayer extends Player{
 
 	public synchronized void stopRendering() {
 		javafx.application.Platform.runLater(() -> {
-			nick.setText("");
-			GameLoop.getRoot().getChildren().remove(nick);
+			getNick().setText("");
+			GameLoop.getRoot().getChildren().remove(getNick());
 			GameLoop.getRoot().getChildren().remove(imageView);
 		});
 	}
