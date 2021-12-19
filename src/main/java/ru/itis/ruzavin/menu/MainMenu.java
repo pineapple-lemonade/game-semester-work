@@ -40,6 +40,18 @@ public class MainMenu {
 		}
 	};
 
+	private final EventHandler<ActionEvent> multiPlayerEvent = new EventHandler<ActionEvent>() {
+		@SneakyThrows
+		@Override
+		public void handle(ActionEvent event) {
+			if (singlePlayerButton == event.getSource()){
+				nick = nickTextField.getText();
+				GameLoop gameLoop = new GameLoop();
+				gameLoop.start(stage);
+			}
+		}
+	};
+
 
 	private void createContent(){
 		pane = new AnchorPane();
@@ -59,6 +71,7 @@ public class MainMenu {
 		multiPlayerButton.setFont(font);
 		multiPlayerButton.setTranslateX(350);
 		multiPlayerButton.setTranslateY(400);
+		multiPlayerButton.setOnAction(multiPlayerEvent);
 
 		nickTextField = new TextField();
 		nickTextField.setMaxSize(200, 200);

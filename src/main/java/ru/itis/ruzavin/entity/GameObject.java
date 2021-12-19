@@ -12,22 +12,10 @@ public class GameObject {
 		this.view = view;
 	}
 
-	public void update() {
-		view.setTranslateX(view.getTranslateX());
-		view.setTranslateY(view.getTranslateY());
-	}
+
 
 	public double getRotate() {
 		return view.getRotate();
 	}
-
-	public void rotateRight() {
-		view.setRotate(view.getRotate() + 6);
-	}
-
-	public void rotateLeft() {
-		view.setRotate(view.getRotate() - 6);
-	}
-
 
 }

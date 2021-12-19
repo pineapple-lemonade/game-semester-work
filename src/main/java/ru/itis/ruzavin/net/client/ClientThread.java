@@ -10,7 +10,7 @@ public class ClientThread implements Runnable {
 	private final BufferedReader inputStream;
 	private final BufferedWriter outputStream;
 	private final Client client;
-	private final GameMap map = GameMap.getInstance();
+	private final GameMap map = new GameMap();
 	private boolean isWorking = true;
 
 	public ClientThread(BufferedReader input, BufferedWriter output, Client client) {

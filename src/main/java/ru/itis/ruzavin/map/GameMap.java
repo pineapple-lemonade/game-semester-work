@@ -1,5 +1,7 @@
 package ru.itis.ruzavin.map;
 
+import javafx.scene.layout.Pane;
+import lombok.Data;
 import ru.itis.ruzavin.map.entity.Border;
 import ru.itis.ruzavin.map.entity.Checkpoint;
 import ru.itis.ruzavin.map.entity.Finish;
@@ -7,9 +9,11 @@ import ru.itis.ruzavin.map.entity.MapObject;
 
 import java.util.List;
 
+@Data
 public class GameMap {
-	public static GameMap getInstance() {
-		return null;
+
+	public GameMap() {
+
 	}
 
 	public void createMap(List<MapObject> mapObjects){

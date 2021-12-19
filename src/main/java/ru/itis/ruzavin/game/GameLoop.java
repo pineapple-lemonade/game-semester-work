@@ -52,7 +52,7 @@ public class GameLoop {
 		Thread botThread = new Thread(bot);
 		botThread.start();
 
-		player = new Player(250, 930, nick);
+		player = new Player(250, 930, nick, false);
 
 		gameMap.createMap(mapObjects);
 

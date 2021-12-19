@@ -8,18 +8,23 @@ import javafx.scene.text.Text;
 import lombok.Getter;
 import lombok.Setter;
 import ru.itis.ruzavin.map.entity.MapObject;
+import ru.itis.ruzavin.net.client.Client;
+
+import javax.swing.text.html.ImageView;
+import java.io.IOException;
 
 @Getter
 @Setter
 public class Player extends GameObject{
 
 	private Point2D lastCheckpoint;
-
 	private boolean isDriving;
-
 	private Text nick;
+	private boolean isMulti;
+	private Client client;
+	protected ImageView imageView;
 
-	public Player(double x, double y, Text nick) {
+	public Player(double x, double y, Text nick , boolean isMulti) {
 		super(new Rectangle(40,20, Color.GREEN));
 		this.lastCheckpoint = new Point2D(x, y);
 		this.getView().setTranslateX(lastCheckpoint.getX());
@@ -27,6 +32,16 @@ public class Player extends GameObject{
 		this.getView().setRotate(90);
 		this.isDriving = false;
 		this.nick = nick;
+		this.isMulti = isMulti;
+
+		if (isMulti) {
+			client = new Client();
+			try {
+				client.start();
+			} catch (IOException e) {
+				throw new IllegalArgumentException(e);
+			}
+		}
 	}
 
 	public void moveToCheckpoint(double x, double y, double rotation){
@@ -36,6 +51,11 @@ public class Player extends GameObject{
 		nick.setX(x);
 		nick.setY(y - 10);
 		isDriving = false;
+		if (isMulti){
+			String message = getNick().getText() + "move," + getView().getTranslateX() + "," + getView().getTranslateY()
+					+ "," + isDriving;
+			client.sendMessage(message);
+		}
 	}
 
 	public boolean isCollideWithMap(MapObject object){
@@ -70,11 +90,20 @@ public class Player extends GameObject{
 	public void moveForward(boolean isDriving){
 		if (isDriving){
 			double rotation = getView().getRotate();
-			checkRotationAndMove(rotation);
+			move(rotation);
 		}
 	}
 
-	private void checkRotationAndMove(double rotation){
+	private void move(double rotation){
+		checkRotationAndMove(rotation);
+		if (isMulti){
+			String message = getNick().getText() + "," + getView().getTranslateX() + "," + getView().getTranslateY()
+					+ "," + isDriving + "," + getRotate();
+			client.sendMessage(message);
+		}
+	}
+
+	protected void checkRotationAndMove(double rotation){
 		if (rotation == 0){
 			getView().setTranslateX(getView().getTranslateX() - 2);
 			nick.setX(nick.getX() - 2);
