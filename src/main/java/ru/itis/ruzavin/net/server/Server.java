@@ -1,6 +1,7 @@
 package ru.itis.ruzavin.net.server;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Data
 public class Server {
+	@Getter
 	private static final int PORT = 5555;
 	private ServerSocket socket;
 	private final List<ServerThread> clients = new ArrayList<>();
@@ -40,7 +42,7 @@ public class Server {
 			if (client.equals(sender)){
 				continue;
 			}
-			client.getOutputStream().write(message+ "\n");
+			client.getOutputStream().write(message + "\n");
 			client.getOutputStream().flush();
 		}
 	}
@@ -50,8 +52,8 @@ public class Server {
 	}
 
 	public static void main(String[] args) throws IOException {
-		Server gameServer = new Server();
-		gameServer.start();
+		Server server = new Server();
+		server.start();
 	}
 
 	public void stop() {

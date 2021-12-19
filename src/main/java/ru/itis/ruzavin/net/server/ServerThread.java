@@ -24,9 +24,11 @@ public class ServerThread implements Runnable{
 
 	@Override
 	public void run() {
+		System.out.println("someone connected");
 		try {
 			while (isWorking) {
 				String message = inputStream.readLine();
+				System.out.println(message);
 				server.sendMessage(message, this);
 			}
 		} catch (SocketException socketException) {

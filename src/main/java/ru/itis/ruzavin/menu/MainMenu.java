@@ -23,6 +23,7 @@ public class MainMenu {
 	private Font font;
 	private Stage stage;
 	private static String nick;
+	private final GameLoop GAME_LOOP = GameLoop.getInstance();
 
 	public MainMenu() {
 		createContent();
@@ -34,8 +35,7 @@ public class MainMenu {
 		public void handle(ActionEvent event) {
 			if (singlePlayerButton == event.getSource()){
 				nick = nickTextField.getText();
-				GameLoop gameLoop = new GameLoop();
-				gameLoop.start(stage);
+				GAME_LOOP.startSinglePlayer(stage);
 			}
 		}
 	};
@@ -44,10 +44,9 @@ public class MainMenu {
 		@SneakyThrows
 		@Override
 		public void handle(ActionEvent event) {
-			if (singlePlayerButton == event.getSource()){
+			if (multiPlayerButton == event.getSource()){
 				nick = nickTextField.getText();
-				GameLoop gameLoop = new GameLoop();
-				gameLoop.start(stage);
+				GAME_LOOP.startMultiPlayer(stage);
 			}
 		}
 	};

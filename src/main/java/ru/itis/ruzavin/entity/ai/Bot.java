@@ -11,7 +11,7 @@ import java.util.List;
 public class Bot extends Player implements Runnable{
 
 	public Bot(double x, double y, Text nick) {
-		super(x, y, nick);
+		super(x, y, nick, false);
 		this.getView().setRotate(90);
 	}
 

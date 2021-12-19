@@ -52,8 +52,12 @@ public class Player extends GameObject{
 		nick.setY(y - 10);
 		isDriving = false;
 		if (isMulti){
-			String message = getNick().getText() + "move," + getView().getTranslateX() + "," + getView().getTranslateY()
-					+ "," + isDriving;
+			String message = "move" +
+					"," + getNick().getText() +
+					"," + getView().getTranslateX() +
+					"," + getView().getTranslateY() +
+					"," + isDriving +
+					"," + getRotate() + "\n";
 			client.sendMessage(message);
 		}
 	}
@@ -90,15 +94,16 @@ public class Player extends GameObject{
 	public void moveForward(boolean isDriving){
 		if (isDriving){
 			double rotation = getView().getRotate();
-			move(rotation);
+			moveAndSendMessage(rotation);
 		}
 	}
 
-	private void move(double rotation){
+	protected void moveAndSendMessage(double rotation){
 		checkRotationAndMove(rotation);
 		if (isMulti){
-			String message = getNick().getText() + "," + getView().getTranslateX() + "," + getView().getTranslateY()
-					+ "," + isDriving + "," + getRotate();
+			String message = "move" + "," + getNick().getText() + "," + getView().getTranslateX() +
+					"," + getView().getTranslateY()
+					+ "," + isDriving + "," + getRotate() + "\n";
 			client.sendMessage(message);
 		}
 	}
