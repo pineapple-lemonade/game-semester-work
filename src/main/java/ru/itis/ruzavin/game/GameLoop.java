@@ -152,7 +152,7 @@ public class GameLoop {
 
 	@SneakyThrows
 	private void onUpdate() {
-
+		player.checkCollisions();
 	}
 
 	public synchronized void moveAnotherPlayer(String name, double rotation, boolean isDriving) {
