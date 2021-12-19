@@ -20,7 +20,7 @@ public class AnotherPlayer extends Player{
 
 
 	public synchronized void move(double rotation) {
-		moveAndSendMessage(rotation);
+		this.moveAndSendMessage(rotation);
 	}
 
 	public synchronized void stopRendering() {
