@@ -14,7 +14,7 @@ public class AnotherPlayer extends Player{
 	private GameLoop gameLoop;
 
 	public AnotherPlayer(Text nick, String name) {
-		super(300, 930, nick, true);
+		super(300, 930, nick, false);
 		this.name = name;
 	}
 

@@ -29,7 +29,7 @@ public class ClientThread implements Runnable {
 		try {
 			while (isWorking) {
 				String message = inputStream.readLine();
-
+				System.out.println(message);
 				if (message != null) {
 					String[] messageSplit = message.split(",");
 

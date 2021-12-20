@@ -21,6 +21,7 @@ public class Client {
 
 		try {
 			clientThread.getOutputStream().write(message);
+			//System.out.println(message);
 			clientThread.getOutputStream().flush();
 
 			isSuccessful = true;

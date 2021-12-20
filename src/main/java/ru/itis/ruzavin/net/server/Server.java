@@ -2,6 +2,7 @@ package ru.itis.ruzavin.net.server;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@ToString(exclude = "clients")
 public class Server {
 	@Getter
 	private static final int PORT = 5555;
@@ -21,8 +23,12 @@ public class Server {
 
 	public void start() throws IOException {
 		socket = new ServerSocket(PORT);
-
+		int counter = 0;
 		while (isWorking) {
+			counter++;
+			if(counter == 2){
+				break;
+			}
 			Socket clientSocket = socket.accept();
 
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));
@@ -33,11 +39,13 @@ public class Server {
 			clients.add(serverThread);
 
 			new Thread(serverThread).start();
+
 		}
 	}
 
 	public void sendMessage(String message, ServerThread sender) throws IOException {
 		this.message = message;
+		System.out.println(clients);
 		for (ServerThread client : clients) {
 			if (client.equals(sender)){
 				continue;

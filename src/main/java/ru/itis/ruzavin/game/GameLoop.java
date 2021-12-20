@@ -58,6 +58,7 @@ public class GameLoop {
 		stage.getScene().setOnKeyPressed(k -> player.moveForward(k.getCode()));
 		stage.show();
 		player.getClient().sendMessage("connected," + player.getNick().getText() + "\n");
+		System.out.println(ANOTHER_PLAYERS);
 	}
 
 	public synchronized void createAnotherPlayer(String name){
@@ -72,7 +73,7 @@ public class GameLoop {
 
 		if(!isFound) {
 			Platform.runLater(() -> {
-				Text nick = new Text(250, 920, name);
+				Text nick = new Text(300, 920, name);
 				nick.setFont(FONT);
 				nick.setFill(Color.RED);
 				AnotherPlayer anotherPlayer = new AnotherPlayer(nick, name);
