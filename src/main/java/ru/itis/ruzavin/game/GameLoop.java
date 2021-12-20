@@ -22,6 +22,9 @@ import ru.itis.ruzavin.map.entity.Checkpoint;
 import ru.itis.ruzavin.map.entity.Finish;
 import ru.itis.ruzavin.map.entity.MapObject;
 import ru.itis.ruzavin.menu.MainMenu;
+import ru.itis.ruzavin.net.client.Client;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -37,6 +40,7 @@ public class GameLoop {
 	private final GameMap GAME_MAP = new GameMap();
 	private static final GameLoop GAME_LOOP = new GameLoop();
 	private static final CopyOnWriteArrayList<AnotherPlayer> ANOTHER_PLAYERS = new CopyOnWriteArrayList<>();
+	private static Client client;
 	private Stage stage;
 
 	public static Pane getRoot(){
@@ -54,7 +58,11 @@ public class GameLoop {
 	}
 
 	public void startMultiPlayer(Stage stage){
-		stage.setScene(new Scene(createMultiPlayerContent()));
+		try {
+			stage.setScene(new Scene(createMultiPlayerContent()));
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
 		stage.getScene().setOnKeyPressed(k -> player.moveForward(k.getCode()));
 		stage.show();
 		player.getClient().sendMessage("connected," + player.getNick().getText() + "\n");
@@ -120,7 +128,9 @@ public class GameLoop {
 		return root;
 	}
 
-	private Parent createMultiPlayerContent(){
+	private Parent createMultiPlayerContent() throws IOException {
+		client = new Client();
+		client.start();
 		root = new Pane();
 		root.setPrefSize(1000, 1000);
 

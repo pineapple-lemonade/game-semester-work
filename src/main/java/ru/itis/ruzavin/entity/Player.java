@@ -38,15 +38,6 @@ public class Player extends GameObject{
 		this.isDriving = false;
 		this.nick = nick;
 		this.isMulti = isMulti;
-
-		if (isMulti) {
-			client = new Client();
-			try {
-				client.start();
-			} catch (IOException e) {
-				throw new IllegalArgumentException(e);
-			}
-		}
 	}
 
 	public void moveToCheckpoint(double x, double y, double rotation){
