@@ -56,7 +56,7 @@ public class ClientThread implements Runnable {
 						case "win":
 							String nick2 = messageSplit[1];
 							new WinMenu(GameLoop.getStage(),nick2);
-							gameLoop.getPlayer().moveToCheckpoint(300, 300, 180);
+							GameLoop.getPlayer().moveToCheckpoint(300, 300, 180);
 							gameLoop.stopMove();
 							GameLoop.getRoot().getChildren().removeAll();
 							break;

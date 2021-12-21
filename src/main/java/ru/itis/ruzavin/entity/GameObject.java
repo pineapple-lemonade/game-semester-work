@@ -14,8 +14,6 @@ public class GameObject {
 		this.view = view;
 	}
 
-
-
 	public double getRotate() {
 		return view.getRotate();
 	}

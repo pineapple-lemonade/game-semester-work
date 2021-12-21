@@ -35,8 +35,9 @@ public class GameLoop {
 	@Getter
 	private final List<MapObject> MAP_OBJECTS = new ArrayList<>();
 	@Getter
-	private Player player;
-	private Bot bot;
+	private static Player player;
+	@Getter
+	private static Bot bot;
 	private final Font FONT = Font.font("Courier New", FontWeight.BOLD, 20);
 	private final GameMap GAME_MAP = new GameMap();
 	private static final GameLoop GAME_LOOP = new GameLoop();
@@ -93,6 +94,8 @@ public class GameLoop {
 				root.getChildren().add(anotherPlayer.getView());
 				root.getChildren().add(nick);
 				javafx.application.Platform.runLater(() -> root.getChildren().add(anotherPlayer.getImageView()));
+				javafx.application.Platform.runLater(() -> anotherPlayer.getImageView().setX(300));
+				javafx.application.Platform.runLater(() -> anotherPlayer.getImageView().setY(920));
 			});
 		}
 	}
@@ -109,8 +112,12 @@ public class GameLoop {
 		bot = new Bot(300, 930, botNick);
 		Thread botThread = new Thread(bot);
 		botThread.start();
+		bot.getImageView().setX(300);
+		bot.getImageView().setY(930);
 
 		player = new Player(250, 930, nick, false);
+		player.getImageView().setX(250);
+		player.getImageView().setY(930);
 
 		GAME_MAP.createMap(MAP_OBJECTS);
 

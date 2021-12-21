@@ -4,6 +4,7 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 import java.io.File;
@@ -18,6 +19,7 @@ public class Checkpoint extends MapObject{
 		getImageView().setViewport(new Rectangle2D(0, 0, 53, 94));
 		getImageView().setY(y);
 		getImageView().setX(x);
+		((Rectangle) getView()).setFill(Color.TRANSPARENT);
 	}
 
 }

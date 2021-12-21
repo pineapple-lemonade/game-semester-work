@@ -2,9 +2,12 @@ package ru.itis.ruzavin.menu;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -13,6 +16,8 @@ import javafx.stage.Stage;
 import lombok.Data;
 import lombok.SneakyThrows;
 import ru.itis.ruzavin.game.GameLoop;
+
+import java.io.File;
 
 @Data
 public class MainMenu {
@@ -76,7 +81,12 @@ public class MainMenu {
 		nickTextField.setMaxSize(200, 200);
 		nickTextField.setTranslateX(310);
 		nickTextField.setTranslateY(500);
+		Image image = new Image(new File("src/main/resources/img.menu/1.jpg").toURI().toString());
+		ImageView imageView = new ImageView(image);
+		imageView.setFitHeight(800);
+		imageView.setFitWidth(800);
 
+		pane.getChildren().add(imageView);
 		pane.getChildren().add(singlePlayerButton);
 		pane.getChildren().add(multiPlayerButton);
 		pane.getChildren().add(nickTextField);

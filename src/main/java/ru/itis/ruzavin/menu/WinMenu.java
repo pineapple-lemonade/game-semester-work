@@ -17,8 +17,8 @@ public class WinMenu {
 	private Pane pane = null;
 	private VBox vBox;
 	public Button closeApp;
-	private Stage stage;
-	private String winner;
+	private final Stage stage;
+	private final String winner;
 	public WinMenu(Stage stage, String winner) {
 
 		this.stage = stage;

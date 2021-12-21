@@ -56,6 +56,9 @@ public class Bot extends Player implements Runnable{
 
 		if (isCollideWithMap(mapObjects.get(mapObjects.size() - 1))){
 			new WinMenu(GameLoop.getStage(),"bot");
+			GameLoop.getPlayer().setDriving(false);
+			GameLoop.getPlayer().moveToCheckpoint(300, 300, 180);
+			GameLoop.getRoot().getChildren().removeAll();
 		}
 	}
 }

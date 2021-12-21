@@ -151,8 +151,8 @@ public class Player extends GameObject{
 				}
 				if (object instanceof Finish) {
 					new WinMenu(GameLoop.getStage(), nick.getText());
-					isDriving = false;
-					moveToCheckpoint(300, 300, 180);
+					GameLoop.getBot().setDriving(false);
+					GameLoop.getBot().moveToCheckpoint(300, 300, 180);
 					GameLoop.getRoot().getChildren().removeAll();
 					if (isMulti){
 						String message = "win" + "," + nick.getText() + "\n";
