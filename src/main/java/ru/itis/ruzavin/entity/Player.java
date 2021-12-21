@@ -150,12 +150,12 @@ public class Player extends GameObject{
 					break;
 				}
 				if (object instanceof Finish) {
+					new WinMenu(GameLoop.getStage(), nick.getText());
 					isDriving = false;
 					moveToCheckpoint(300, 300, 180);
-					new WinMenu(GameLoop.getStage(), nick.getText());
 					GameLoop.getRoot().getChildren().removeAll();
 					if (isMulti){
-						String message = "win" + "," + nick.getText();
+						String message = "win" + "," + nick.getText() + "\n";
 						client.sendMessage(message);
 					}
 				}
