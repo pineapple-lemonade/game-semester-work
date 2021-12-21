@@ -15,6 +15,7 @@ import ru.itis.ruzavin.game.GameLoop;
 import ru.itis.ruzavin.map.entity.Checkpoint;
 import ru.itis.ruzavin.map.entity.Finish;
 import ru.itis.ruzavin.map.entity.MapObject;
+import ru.itis.ruzavin.menu.WinMenu;
 import ru.itis.ruzavin.net.client.Client;
 
 import java.io.File;
@@ -149,7 +150,11 @@ public class Player extends GameObject{
 					break;
 				}
 				if (object instanceof Finish) {
-					Platform.exit();
+					new WinMenu(GameLoop.getStage(), nick.getText());
+					if (isMulti){
+						String message = "win" + "," + nick.getText();
+						client.sendMessage(message);
+					}
 				}
 				moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
 			}

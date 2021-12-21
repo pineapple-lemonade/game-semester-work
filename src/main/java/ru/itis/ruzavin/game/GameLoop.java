@@ -41,7 +41,8 @@ public class GameLoop {
 	private static final GameLoop GAME_LOOP = new GameLoop();
 	private static final CopyOnWriteArrayList<AnotherPlayer> ANOTHER_PLAYERS = new CopyOnWriteArrayList<>();
 	private static Client client;
-	private Stage stage;
+	@Getter
+	private static Stage stage;
 
 	public static Pane getRoot(){
 		return root;
@@ -54,6 +55,7 @@ public class GameLoop {
 	public void startSinglePlayer(Stage stage){
 		stage.setScene(new Scene(createSinglePlayerContent()));
 		stage.getScene().setOnKeyPressed(k -> player.moveForward(k.getCode()));
+		GameLoop.stage = stage;
 		stage.show();
 	}
 
@@ -65,6 +67,7 @@ public class GameLoop {
 		}
 		stage.getScene().setOnKeyPressed(k -> player.moveForward(k.getCode()));
 		stage.show();
+		GameLoop.stage = stage;
 		player.getClient().sendMessage("connected," + player.getNick().getText() + "\n");
 		System.out.println(ANOTHER_PLAYERS);
 	}

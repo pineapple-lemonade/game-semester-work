@@ -7,7 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import lombok.SneakyThrows;
 import ru.itis.ruzavin.entity.Player;
+import ru.itis.ruzavin.game.GameLoop;
+import ru.itis.ruzavin.map.GameMap;
 import ru.itis.ruzavin.map.entity.MapObject;
+import ru.itis.ruzavin.menu.WinMenu;
 
 import java.io.File;
 import java.util.List;
@@ -52,7 +55,7 @@ public class Bot extends Player implements Runnable{
 		}
 
 		if (isCollideWithMap(mapObjects.get(mapObjects.size() - 1))){
-			Platform.exit();
+			new WinMenu(GameLoop.getStage(),"bot");
 		}
 	}
 }

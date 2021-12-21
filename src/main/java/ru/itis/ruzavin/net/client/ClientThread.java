@@ -2,6 +2,7 @@ package ru.itis.ruzavin.net.client;
 
 import lombok.Data;
 import ru.itis.ruzavin.game.GameLoop;
+import ru.itis.ruzavin.menu.WinMenu;
 
 import java.io.*;
 
@@ -51,6 +52,10 @@ public class ClientThread implements Runnable {
 							double y1 = Double.parseDouble(messageSplit[3]);
 							double rotation1 = Double.parseDouble(messageSplit[5]);
 							gameLoop.tpAnotherPlayer(x1, y1 ,rotation1, nick1);
+							break;
+						case "win":
+							String nick2 = messageSplit[1];
+							new WinMenu(GameLoop.getStage(),nick2);
 							break;
 					}
 
