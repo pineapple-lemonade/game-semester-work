@@ -34,6 +34,7 @@ public class GameLoop {
 	private static Pane root;
 	@Getter
 	private final List<MapObject> MAP_OBJECTS = new ArrayList<>();
+	@Getter
 	private Player player;
 	private Bot bot;
 	private final Font FONT = Font.font("Courier New", FontWeight.BOLD, 20);
