@@ -23,12 +23,7 @@ public class Server {
 
 	public void start() throws IOException {
 		socket = new ServerSocket(PORT);
-		int counter = 0;
 		while (isWorking) {
-			counter++;
-			if(counter == 2){
-				break;
-			}
 			Socket clientSocket = socket.accept();
 
 			BufferedReader input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream(), StandardCharsets.UTF_8));

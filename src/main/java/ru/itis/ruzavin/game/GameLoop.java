@@ -138,6 +138,7 @@ public class GameLoop {
 		nick.setFont(FONT);
 
 		player = new Player(250, 930, nick, true);
+		player.setClient(client);
 
 		GAME_MAP.createMap(MAP_OBJECTS);
 

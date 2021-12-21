@@ -14,13 +14,13 @@ public class AnotherPlayer extends Player{
 	private GameLoop gameLoop;
 
 	public AnotherPlayer(Text nick, String name) {
-		super(300, 930, nick, true);
+		super(300, 930, nick, false);
 		this.name = name;
 	}
 
 
 	public synchronized void move(double rotation) {
-		this.moveAndSendMessage(rotation);
+		moveAndSendMessage(rotation);
 	}
 
 	public synchronized void stopRendering() {
@@ -30,5 +30,7 @@ public class AnotherPlayer extends Player{
 			GameLoop.getRoot().getChildren().remove(imageView);
 		});
 	}
+
+
 }
 
