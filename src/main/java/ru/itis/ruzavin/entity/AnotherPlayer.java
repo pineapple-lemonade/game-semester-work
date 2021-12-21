@@ -35,7 +35,11 @@ public class AnotherPlayer extends Player{
 	}
 
 	public synchronized void tpPlayer(double x, double y, double rotation){
-		moveToCheckpoint(x, y, rotation);
+		getView().setTranslateX(x);
+		getView().setTranslateY(y);
+		getView().setRotate(rotation);
+		getNick().setX(x);
+		getNick().setY(y - 10);
 	}
 
 	public synchronized void stopRendering() {

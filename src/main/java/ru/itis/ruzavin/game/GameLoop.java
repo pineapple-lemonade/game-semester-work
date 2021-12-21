@@ -153,6 +153,12 @@ public class GameLoop {
 		player = new Player(250, 930, nick, true);
 		player.setClient(client);
 
+		Image background = new Image(new File("src/main/resources/img.background/Water_Tile.png").toURI().toString());
+		ImageView backgroundView = new ImageView(background);
+		backgroundView.setFitHeight(1000);
+		backgroundView.setFitWidth(1000);
+		root.getChildren().add(backgroundView);
+
 		GAME_MAP.createMap(MAP_OBJECTS);
 
 		MAP_OBJECTS.forEach((object -> root.getChildren().add(object.getView())));
