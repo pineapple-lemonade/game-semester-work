@@ -3,6 +3,8 @@ package ru.itis.ruzavin.entity;
 import javafx.scene.Node;
 import lombok.Data;
 
+import java.awt.*;
+
 @Data
 public class GameObject {
 

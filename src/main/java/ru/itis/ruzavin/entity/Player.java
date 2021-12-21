@@ -2,6 +2,9 @@ package ru.itis.ruzavin.entity;
 
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -14,8 +17,7 @@ import ru.itis.ruzavin.map.entity.Finish;
 import ru.itis.ruzavin.map.entity.MapObject;
 import ru.itis.ruzavin.net.client.Client;
 
-import javax.swing.text.html.ImageView;
-import java.io.IOException;
+import java.io.File;
 
 @Getter
 @Setter
@@ -30,7 +32,7 @@ public class Player extends GameObject{
 	private final GameLoop GAME_LOOP = GameLoop.getInstance();
 
 	public Player(double x, double y, Text nick , boolean isMulti) {
-		super(new Rectangle(40,20, Color.GREEN));
+		super(new Rectangle(40,20, Color.TRANSPARENT));
 		this.lastCheckpoint = new Point2D(x, y);
 		this.getView().setTranslateX(lastCheckpoint.getX());
 		this.getView().setTranslateY(lastCheckpoint.getY());
@@ -38,6 +40,11 @@ public class Player extends GameObject{
 		this.isDriving = false;
 		this.nick = nick;
 		this.isMulti = isMulti;
+		Image image = new Image(new File("src/main/resources/img.car/Car_3_01.png").toURI().toString());
+		imageView = new ImageView(image);
+		imageView.setViewport(new Rectangle2D(0, 0, 20, 40));
+		imageView.setY(x);
+		imageView.setX(y);
 	}
 
 	public void moveToCheckpoint(double x, double y, double rotation){
@@ -124,6 +131,10 @@ public class Player extends GameObject{
 			getView().setTranslateY(getView().getTranslateY() + 2);
 			nick.setY(nick.getY() + 2);
 		}
+
+		imageView.setRotate(rotation - 90);
+		imageView.setX(getView().getTranslateX() + 10);
+		imageView.setY(getView().getTranslateY() - 10);
 	}
 
 	public void checkCollisions(){

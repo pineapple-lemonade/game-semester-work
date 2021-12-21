@@ -1,16 +1,21 @@
 package ru.itis.ruzavin.map;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import lombok.Data;
+import lombok.Getter;
 import ru.itis.ruzavin.map.entity.Border;
 import ru.itis.ruzavin.map.entity.Checkpoint;
 import ru.itis.ruzavin.map.entity.Finish;
 import ru.itis.ruzavin.map.entity.MapObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 public class GameMap {
+	@Getter
+	private static List<ImageView> imageViewList = new ArrayList<>();
 
 	public GameMap() {
 
@@ -48,5 +53,21 @@ public class GameMap {
 		mapObjects.add(border11);
 		mapObjects.add(border12);
 		mapObjects.add(finish);
+
+		imageViewList.add(checkPoint.getImageView());
+		imageViewList.add(border.getImageView());
+		imageViewList.add(border1.getImageView());
+		imageViewList.add(border2.getImageView());
+		imageViewList.add(border3.getImageView());
+		imageViewList.add(border4.getImageView());
+		imageViewList.add(border5.getImageView());
+		imageViewList.add(border6.getImageView());
+		imageViewList.add(border7.getImageView());
+		imageViewList.add(border8.getImageView());
+		imageViewList.add(border9.getImageView());
+		imageViewList.add(border10.getImageView());
+		imageViewList.add(border11.getImageView());
+		imageViewList.add(border12.getImageView());
+		imageViewList.add(finish.getImageView());
 	}
 }

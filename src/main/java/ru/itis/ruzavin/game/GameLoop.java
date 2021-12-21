@@ -5,25 +5,25 @@ import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import ru.itis.ruzavin.entity.AnotherPlayer;
 import ru.itis.ruzavin.entity.Player;
 import ru.itis.ruzavin.entity.ai.Bot;
 import ru.itis.ruzavin.map.GameMap;
-import ru.itis.ruzavin.map.entity.Checkpoint;
-import ru.itis.ruzavin.map.entity.Finish;
 import ru.itis.ruzavin.map.entity.MapObject;
 import ru.itis.ruzavin.menu.MainMenu;
 import ru.itis.ruzavin.net.client.Client;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +88,7 @@ public class GameLoop {
 				ANOTHER_PLAYERS.add(anotherPlayer);
 				root.getChildren().add(anotherPlayer.getView());
 				root.getChildren().add(nick);
+				javafx.application.Platform.runLater(() -> root.getChildren().add(anotherPlayer.getImageView()));
 			});
 		}
 	}
@@ -109,11 +110,20 @@ public class GameLoop {
 
 		GAME_MAP.createMap(MAP_OBJECTS);
 
+		Image background = new Image(new File("src/main/resources/img.background/Water_Tile.png").toURI().toString());
+		ImageView backgroundView = new ImageView(background);
+		backgroundView.setFitHeight(1000);
+		backgroundView.setFitWidth(1000);
+		root.getChildren().add(backgroundView);
+
 		MAP_OBJECTS.forEach((object -> root.getChildren().add(object.getView())));
-		root.getChildren().add(player.getView());
 		root.getChildren().add(nick);
 		root.getChildren().add(botNick);
 		root.getChildren().add(bot.getView());
+		GameMap.getImageViewList().forEach(imageView -> root.getChildren().add(imageView));
+		root.getChildren().add(player.getView());
+
+
 
 		AnimationTimer timer = new AnimationTimer() {
 			@Override
@@ -124,6 +134,9 @@ public class GameLoop {
 		};
 
 		timer.start();
+
+		javafx.application.Platform.runLater(() -> root.getChildren().add(player.getImageView()));
+		javafx.application.Platform.runLater(() -> root.getChildren().add(bot.getImageView()));
 
 		return root;
 	}
@@ -145,7 +158,7 @@ public class GameLoop {
 		MAP_OBJECTS.forEach((object -> root.getChildren().add(object.getView())));
 		root.getChildren().add(player.getView());
 		root.getChildren().add(nick);
-
+		javafx.application.Platform.runLater(() -> root.getChildren().add(player.getImageView()));
 		AnimationTimer timer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
@@ -184,13 +197,12 @@ public class GameLoop {
 	}
 
 	public synchronized void tpAnotherPlayer(double x, double y, double rotation, String name) {
-
 		for (AnotherPlayer anotherPlayer : ANOTHER_PLAYERS) {
 			if (anotherPlayer.getName().equals(name)) {
 				Platform.runLater(() -> anotherPlayer.setLastCheckpoint(new Point2D(x, y)));
 				Platform.runLater(() -> anotherPlayer.tpPlayer(x, y, rotation));
 			}
 		}
-
 	}
+	//public synchronized void
 }
