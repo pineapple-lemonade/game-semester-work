@@ -187,6 +187,7 @@ public class GameLoop {
 
 		for (AnotherPlayer anotherPlayer : ANOTHER_PLAYERS) {
 			if (anotherPlayer.getName().equals(name)) {
+				Platform.runLater(() -> anotherPlayer.setLastCheckpoint(new Point2D(x, y)));
 				Platform.runLater(() -> anotherPlayer.tpPlayer(x, y, rotation));
 			}
 		}
