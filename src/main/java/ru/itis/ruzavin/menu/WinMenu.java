@@ -31,7 +31,7 @@ public class WinMenu {
 		@Override
 		public void handle(ActionEvent event) {
 			if (closeApp == event.getSource()) {
-				stage.close();
+				System.exit(1);
 			}
 		}
 	};
