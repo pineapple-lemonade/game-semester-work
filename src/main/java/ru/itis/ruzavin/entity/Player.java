@@ -54,11 +54,13 @@ public class Player extends GameObject{
 		nick.setX(x);
 		nick.setY(y - 10);
 		isDriving = false;
+		imageView.setX(x - 10);
+		imageView.setY(y - 10);
 		if (isMulti){
 			String message = "tp" +
 					"," + getNick().getText() +
-					"," + getView().getTranslateX() +
-					"," + getView().getTranslateY() +
+					"," + x +
+					"," + y +
 					"," + isDriving +
 					"," + getRotate() + "\n";
 			client.sendMessage(message);
