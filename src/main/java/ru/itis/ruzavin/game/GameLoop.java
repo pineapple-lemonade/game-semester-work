@@ -213,5 +213,11 @@ public class GameLoop {
 			}
 		}
 	}
+
+	public synchronized void stopMove(){
+		for (AnotherPlayer anotherPlayer : ANOTHER_PLAYERS) {
+				Platform.runLater(() -> anotherPlayer.setDriving(false));
+		}
+	}
 	//public synchronized void
 }
