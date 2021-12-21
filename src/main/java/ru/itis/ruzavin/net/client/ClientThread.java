@@ -32,18 +32,20 @@ public class ClientThread implements Runnable {
 				System.out.println(message);
 				if (message != null) {
 					String[] messageSplit = message.split(",");
-
+					String nick = messageSplit[1];
+					double x = Double.parseDouble(messageSplit[2]);
+					double y = Double.parseDouble(messageSplit[3]);
+					boolean isDriving = Boolean.parseBoolean(messageSplit[4]);
+					double rotation = Double.parseDouble(messageSplit[5]);
 					switch (messageSplit[0]) {
 						case "connected":
 							gameLoop.createAnotherPlayer(messageSplit[1]);
 							break;
 						case "move":
-							String nick = messageSplit[1];
-							double x = Double.parseDouble(messageSplit[2]);
-							double y = Double.parseDouble(messageSplit[3]);
-							boolean isDriving = Boolean.parseBoolean(messageSplit[4]);
-							double rotation = Double.parseDouble(messageSplit[5]);
 							gameLoop.moveAnotherPlayer(nick, rotation, isDriving);
+							break;
+						case "tp":
+							gameLoop.tpAnotherPlayer(x, y ,rotation, nick);
 							break;
 					}
 

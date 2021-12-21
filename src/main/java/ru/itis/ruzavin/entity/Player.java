@@ -48,7 +48,7 @@ public class Player extends GameObject{
 		nick.setY(y - 10);
 		isDriving = false;
 		if (isMulti){
-			String message = "move" +
+			String message = "tp" +
 					"," + getNick().getText() +
 					"," + getView().getTranslateX() +
 					"," + getView().getTranslateY() +

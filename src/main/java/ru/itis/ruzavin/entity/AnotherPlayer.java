@@ -21,6 +21,11 @@ public class AnotherPlayer extends Player{
 
 	public synchronized void move(double rotation) {
 		moveAndSendMessage(rotation);
+		this.getView().setRotate(rotation);
+	}
+
+	public synchronized void tpPlayer(double x, double y, double rotation){
+		moveToCheckpoint(x, y, rotation);
 	}
 
 	public synchronized void stopRendering() {

@@ -182,4 +182,14 @@ public class GameLoop {
 			createAnotherPlayer(name);
 		}
 	}
+
+	public synchronized void tpAnotherPlayer(double x, double y, double rotation, String name) {
+
+		for (AnotherPlayer anotherPlayer : ANOTHER_PLAYERS) {
+			if (anotherPlayer.getName().equals(name)) {
+				Platform.runLater(() -> anotherPlayer.tpPlayer(x, y, rotation));
+			}
+		}
+
+	}
 }
