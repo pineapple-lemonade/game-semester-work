@@ -61,9 +61,6 @@ public class ClientThread implements Runnable {
 							break;
 					}
 
-//					if (messageSplit[0].equals("win")) {
-//						map.showWinMenu(messageSplit[1]);
-//					}
 				}
 			}
 		} catch (IOException e) {
