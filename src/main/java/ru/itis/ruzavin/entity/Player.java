@@ -150,16 +150,18 @@ public class Player extends GameObject{
 					break;
 				}
 				if (object instanceof Finish) {
-					new WinMenu(GameLoop.getStage(), nick.getText());
-					GameLoop.getBot().setDriving(false);
-					GameLoop.getBot().moveToCheckpoint(300, 300, 180);
-					GameLoop.getRoot().getChildren().removeAll();
+					if (!isMulti){
+						GameLoop.getBot().setDriving(false);
+						GameLoop.getBot().moveToCheckpoint(300, 300, 180);
+						new WinMenu(GameLoop.getStage(), nick.getText());
+						GameLoop.getRoot().getChildren().removeAll();
+					}
 					if (isMulti){
+						moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
 						String message = "win" + "," + nick.getText() + "\n";
 						client.sendMessage(message);
 					}
 				}
-				moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
 			}
 		}
 	}
