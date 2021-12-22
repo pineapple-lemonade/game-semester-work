@@ -157,11 +157,11 @@ public class Player extends GameObject{
 					}
 					new WinMenu(GameLoop.getStage(), nick.getText());
 					if (isMulti){
-						moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
 						String message = "win" + "," + nick.getText() + "\n";
 						client.sendMessage(message);
 					}
 				}
+				moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
 			}
 		}
 	}
