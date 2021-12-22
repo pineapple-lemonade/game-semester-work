@@ -153,9 +153,9 @@ public class Player extends GameObject{
 					if (!isMulti){
 						GameLoop.getBot().setDriving(false);
 						GameLoop.getBot().moveToCheckpoint(300, 300, 180);
-						new WinMenu(GameLoop.getStage(), nick.getText());
 						GameLoop.getRoot().getChildren().removeAll();
 					}
+					new WinMenu(GameLoop.getStage(), nick.getText());
 					if (isMulti){
 						moveToCheckpoint(lastCheckpoint.getX(), lastCheckpoint.getY(), getRotate());
 						String message = "win" + "," + nick.getText() + "\n";
